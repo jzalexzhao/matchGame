@@ -43,11 +43,13 @@ p {
   background-color: rgb(32, 64, 86);
   border: 6px solid #ffffff;
   border-radius: 8px;
+  cursor: pointer;
+  font-weight:900;
+  font-size: 7rem;
+  color:rgb(255, 255, 255);
 }
 
-.card:hover {
-  cursor: pointer;
-}
+
 
 .cardNumber {
   font-weight: 900;

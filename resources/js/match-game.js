@@ -40,6 +40,8 @@ MatchGame.generateCardValues = function () {
 
 // cardValues is an array of card values
 MatchGame.renderCards = function(cardValues, $game) {
+  // which cards have been flipped
+  $game.data('flippedCards', []);
   // here is the background color in hsl for cards
   var cardColors = [
   'hsl(25, 85%, 65%)',
@@ -62,7 +64,12 @@ MatchGame.renderCards = function(cardValues, $game) {
     $game.append($card);
   }
 
+  var $card = $('.card');
+  $card.click(function(){
+    // if the card is clicked, call the function
+    MatchGame.flipCard($(this), $game);
 
+  });
 
 };
 
@@ -72,5 +79,45 @@ MatchGame.renderCards = function(cardValues, $game) {
  */
 
 MatchGame.flipCard = function($card, $game) {
+  // check if the card is flipped or not
+  if ($card.data('isFilpped')) {
+    return;
+  }
+  // if the card is not flipped, we have to render it.
 
+  $card.data('isFilpped', true);
+  $card.css('background-color', $card.data('color'));
+  $card.text($card.data('value'));
+  $game.data('flippedCards').push($card);
+
+  // now check if the game has two flipped cards
+  var flippedCards = $game.data('flippedCards');
+
+  if (flippedCards.length === 2) {
+    // check if two flipped cards have the same value
+    var $card1 = flippedCards[0];
+    var $card2 = flippedCards[1];
+    if ($card1.data('value') === $card2.data('value')) {
+      // we have to change the background color and text color if 
+      // they have the same value
+      $card1.css('background-color', 'rgb(153,153,153)');
+      $card1.css('color', 'rgb(204,204,204)');
+      $card2.css('background-color', 'rgb(153,153,153)');
+      $card2.css('color', 'rgb(204,204,204)');
+    } else {
+    // if two cards do not have the same value
+    // flip them back over
+    window.setTimeout(function(){
+    $card1.css('background-color', 'rgb(32, 64, 86)');
+    $card1.text('');
+    $card1.data('isFilpped', false);
+    $card2.css('background-color', 'rgb(32, 64, 86)');
+    $card2.text('');
+    $card2.data('isFilpped', false);
+    }, 400);
+    }
+
+    // set the flippedCards array to be empty
+    $game.data('flippedCards', []);
+  }
 };
