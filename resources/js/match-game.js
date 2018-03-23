@@ -13,6 +13,7 @@ $(document).ready(function() {
   var cardValues = MatchGame.generateCardValues();
   var $game = $('#game');
   MatchGame.renderCards(cardValues, $game);
+  
 });
 
 MatchGame.generateCardValues = function () {
@@ -42,6 +43,7 @@ MatchGame.generateCardValues = function () {
 MatchGame.renderCards = function(cardValues, $game) {
   // which cards have been flipped
   $game.data('flippedCards', []);
+  $game.data('cardsInGrey', []);
   // here is the background color in hsl for cards
   var cardColors = [
   'hsl(25, 85%, 65%)',
@@ -67,7 +69,7 @@ MatchGame.renderCards = function(cardValues, $game) {
   var $card = $('.card');
   $card.click(function(){
     // if the card is clicked, call the function
-    MatchGame.flipCard($(this), $game);
+    MatchGame.flipCard($(this), $game)
 
   });
 
@@ -104,6 +106,15 @@ MatchGame.flipCard = function($card, $game) {
       $card1.css('color', 'rgb(204,204,204)');
       $card2.css('background-color', 'rgb(153,153,153)');
       $card2.css('color', 'rgb(204,204,204)');
+      $game.data('cardsInGrey').push($card1);
+      $game.data('cardsInGrey').push($card2);
+
+      // if all cards are in grey, that means the player has won the game
+      if (($game.data('cardsInGrey')).length ===16) {
+        var $successMsg = $('<span class="successMsg">YOU WIN!<span>');
+        $game.append($successMsg);
+      }
+
     } else {
     // if two cards do not have the same value
     // flip them back over

@@ -56,3 +56,11 @@ p {
   font-size: 7rem;
   color:rgb(255, 255, 255);
 }
+
+.successMsg {
+    font-size: 7rem;
+    font-weight: 900;
+    position: relative;
+    bottom: 30rem;
+    left: 16.5rem;
+}
