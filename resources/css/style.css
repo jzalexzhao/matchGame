@@ -59,10 +59,52 @@ p {
 
 
 .successMsg {
-    font-size: 7rem;
+    font-size: 5rem;
     font-weight: 900;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
+}
+
+/* Button Selector */
+
+.btn {
+    position: relative;
+    background-color: rgb(32, 64, 86);
+    border: none;
+    font-size: 2rem;
+    color: #FFFFFF;
+    padding: 1.5rem;
+    width: 15rem;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.btn:hover {
+  color: #FCFFCD;
+}
+
+.btn:after {
+    content: "";
+    background: rgb(255, 242, 242);
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.btn:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
 }

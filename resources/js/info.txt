@@ -1,0 +1,12 @@
+All game properties:
+	flippedCards: array, store only two cards, used when check if two cards have the same number.
+	cardsInGrey: array, this is the array in which all flipped cards are stored. Used for check if the player has won or not.
+
+
+
+
+
+All card properties:
+	value: num, the numebr on the card.
+	isFlipped: bool, check if the current card has been flipped or not.
+	color: string. html color property in hsl 

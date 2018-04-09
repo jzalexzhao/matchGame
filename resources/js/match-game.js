@@ -1,5 +1,7 @@
 var MatchGame = {};
 
+var numOfCards = 16; // This the the total number of cards on the page
+
 /*
   Sets up a new game after HTML document has loaded.
   Renders a 4x4 board of cards.
@@ -13,7 +15,6 @@ $(document).ready(function() {
   var cardValues = MatchGame.generateCardValues();
   var $game = $('#game');
   MatchGame.renderCards(cardValues, $game);
-  
 });
 
 MatchGame.generateCardValues = function () {
@@ -42,8 +43,8 @@ MatchGame.generateCardValues = function () {
 // cardValues is an array of card values
 MatchGame.renderCards = function(cardValues, $game) {
   // which cards have been flipped
-  $game.data('flippedCards', []);
-  $game.data('cardsInGrey', []);
+  $game.data('flippedCards', []); // this is only for two cards
+  $game.data('cardsInGrey', []); // 
   // here is the background color in hsl for cards
   var cardColors = [
   'hsl(25, 85%, 65%)',
@@ -73,6 +74,11 @@ MatchGame.renderCards = function(cardValues, $game) {
 
   });
 
+
+  var $button = $('.btn');
+  $button.click(function() {
+    MatchGame.restartGame($game);
+  })
 };
 
 /*
@@ -91,6 +97,8 @@ MatchGame.flipCard = function($card, $game) {
   $card.css('background-color', $card.data('color'));
   $card.text($card.data('value'));
   $game.data('flippedCards').push($card);
+  // change the status of the card: isFlipped
+  // change the background-color of the card
 
   // now check if the game has two flipped cards
   var flippedCards = $game.data('flippedCards');
@@ -110,7 +118,7 @@ MatchGame.flipCard = function($card, $game) {
       $game.data('cardsInGrey').push($card2);
 
       // if all cards are in grey, that means the player has won the game
-      if (($game.data('cardsInGrey')).length ===16) {
+      if (($game.data('cardsInGrey')).length === numOfCards) { 
         var $successMsg = $('<span class="successMsg">YOU WIN!<span>');
         $game.append($successMsg);
       }
@@ -132,3 +140,9 @@ MatchGame.flipCard = function($card, $game) {
     $game.data('flippedCards', []);
   }
 };
+
+MatchGame.restartGame = function($game) {
+  // recall renderCards to restart the game
+  var cardValues = MatchGame.generateCardValues();
+  MatchGame.renderCards(cardValues, $game);
+}
